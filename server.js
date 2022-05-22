@@ -14,6 +14,9 @@ var session = require('express-session')
 app.set('view engine', 'ejs');
 
 
+app.use(express.static('./public'));
+
+
 app.listen(process.env.PORT || 5000, function (err) {
   if (err) console.log(err);
 })
@@ -132,13 +135,11 @@ app.get('/', function (req, res) {
 //     res.send('Hi there, here is my <a href="mailto:ghong10@bcit.ca"> email </a>.')
 // })
 
-app.use(express.static('./public'));
-
 app.get('/profile/:id', function (req, res) {
   // res.send(`<h1> Hi there. This pokemon has the id : ${req.params.id} </h1>`)
 
 
-  const url = `https://serene-lowlands-99039.herokuapp.com/${req.params.id}`
+  const url = `https://pokeapi.co/api/v2/pokemon/${req.params.id}`
 
   data = ""
 
@@ -169,3 +170,4 @@ app.get('/profile/:id', function (req, res) {
   });
 
 })
+
