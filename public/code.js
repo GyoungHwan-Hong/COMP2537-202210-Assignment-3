@@ -27,7 +27,7 @@ async function loadNineImages() {
 
         await $.ajax({
             type: "GET", 
-            url: `https://serene-lowlands-99039.herokuapp.com/${x}/`,
+            url: `https://pokeapi.co/api/v2/pokemon/${x}/`,
             success: processPokeResp
         })
 

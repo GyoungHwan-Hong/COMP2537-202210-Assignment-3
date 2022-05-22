@@ -22,7 +22,7 @@ function display(type_){
     for (i = 1 ; i < 10; i++) {
         $.ajax({
             type: "get",
-            url: `https://serene-lowlands-99039.herokuapp.com/${i}`,
+            url: `https://pokeapi.co/api/v2/pokemon/${i}`,
             success: processPokemonResp
         })
     }
