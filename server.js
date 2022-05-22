@@ -46,7 +46,7 @@ app.use(bodyparser.urlencoded({
 
 
 app.get('/login/', function (req, res, next) {
-  res.send("Please provide the credentials throught the URL")
+  res.sendFile(__dirname + '/public/login.html');
 })
 
 
