@@ -23,7 +23,7 @@ async function loadNineImages() {
         // 2. init a AJAX request to pokeapi.co
         // 3. process the reponse extract the img
 
-        x = Math.floor(Math.random() * 10) + 1
+        x = Math.floor(Math.random() * 200) + 1
 
         await $.ajax({
             type: "GET", 

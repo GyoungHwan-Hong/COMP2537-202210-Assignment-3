@@ -127,7 +127,7 @@ app.get('/timeline/remove/:id', function (req, res) {
 
 
 app.get('/', function (req, res) {
-    res.sendFile(__dirname + "/index.html");
+    res.sendFile(__dirname + "public/index.html");
 
 })
 
@@ -165,9 +165,9 @@ app.get('/profile/:id', function (req, res) {
 
       });
 
-      //console.log(JSON.parse(data))
     })
   });
 
 })
+
 
