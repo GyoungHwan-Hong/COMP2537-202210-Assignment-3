@@ -50,6 +50,14 @@ app.get('/login/', function (req, res, next) {
 })
 
 
+app.get('/shoping/', function (req, res, next) {
+  res.send("Something for shoping card.")
+})
+
+app.get('/userprofile/', function (req, res, next) {
+  res.send("Something for userprofile.")
+})
+
 mongoose.connect("mongodb://localhost:27017/timelineDB",
   { useNewUrlParser: true, useUnifiedTopology: true });
 const eventSchema = new mongoose.Schema({
