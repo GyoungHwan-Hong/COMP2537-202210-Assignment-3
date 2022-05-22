@@ -50,15 +50,6 @@ app.use(bodyparser.urlencoded({
 }))
 
 
-// app.get('/', function (req, res) {
-//   if (req.session.authenticated)
-//     res.send(`Hi $(req.session.user} !`)
-//   else {
-//     res.redirect('/login')
-//   }
-// })
-
-
 app.get('/login/', function (req, res, next) {
   res.sendFile(__dirname + '/public/login.html');
 })
@@ -69,7 +60,11 @@ app.get('/shoping/', function (req, res, next) {
 })
 
 app.get('/userprofile/', function (req, res, next) {
-  res.send("Something for userprofile.")
+  res.render("useprofile.ejs", {
+    "id": "Get from DB ",
+    "name": "Get from DB ",
+    "hp": "Get from DB "
+  });
 })
 
 

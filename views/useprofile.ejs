@@ -1,7 +1,7 @@
 <html>
 
 <head>
-    <link rel="stylesheet" href="public/style.css">
+    <link rel="stylesheet" href="style.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="code.js"></script>
@@ -13,23 +13,36 @@
         <h1>Pokemon Page</h1>
     </header>
     <nav>
-            <div class="nav_container">
-                <a href="index.html">
-                    HOME
-                </a>
-                <a href="search.html">
-                    SEARCH
-                </a>
-                <a href="SHOWPING.html">
-                    SHOPING CART
-                </a>
-                <a href="useprofile.ejs">
-                    PROFILE
-                </a>
-            </div>
+        <div>
+        <a href="/index.html">
+            HOME
+        </a>
+        <a href="search.html">
+            SEARCH
+        </a>
+        <a href="SHOWPING.html">
+            SHOPING CART
+        </a>
+        <a href="/userprofile/">
+            PROFILE
+        </a>
+        </div>
+
+        <div>
+        <a href="/login/">
+            LOGIN
+        </a>
+        </div>
     </nav>
+
     <main>
 
+        <p id="UserID">User ID: <%= id %></p>
+        <p id="Password">Password: <%= name%></p>
+        <p id="NickName">Nick Name: <%= hp%></p>
+        <!-- <p id="email">Email: </p>
+        <p id="phone">Phone: </p> -->
+        <p></p>
 
     </main>
 
