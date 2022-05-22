@@ -15,6 +15,10 @@ const { ppid } = require('process');
 var session = require('express-session')
 
 
+const { User } = require("./public/models/User");
+const { auth } = require("./public/middleware/auth");
+
+
 app.set('view engine', 'ejs');
 
 app.use(express.static('./public'));
@@ -23,12 +27,12 @@ app.use(express.static('./public'));
 const dbAddress = "mongodb+srv://hongkh5218:recify5218@recifycluster.w6cp9.mongodb.net/recify?retryWrites=true&w=majority";
 
 mongoose
-    .connect(dbAddress, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-    })
-    .then(() => console.log("MongoDB Connected"))
-    .catch((err) => console.log(err));
+  .connect(dbAddress, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  })
+  .then(() => console.log("MongoDB Connected"))
+  .catch((err) => console.log(err));
 
 
 app.listen(process.env.PORT || 5000, function (err) {
@@ -39,7 +43,7 @@ app.listen(process.env.PORT || 5000, function (err) {
 app.use(session({ secret: 'ssshhh', saveUninitialized: true, resave: true }))
 
 
-function logger1 (){
+function logger1() {
   console.log('logger1 function get executed!"')
 }
 
@@ -66,6 +70,62 @@ app.get('/userprofile/', function (req, res, next) {
     "hp": "Get from DB "
   });
 })
+
+app.post("/doJoin", (req, res) => {
+  const user = new User(req.body);
+  user.save((err, userInfo) => {
+    if (err) return res.sendFile(__dirname + '/public/signup.html');
+    return res.redirect('/login.html')
+  });
+});
+
+app.post("/doLogin", (req, res) => {
+  User.findOne({ ID: req.body.ID }, (err, user) => {
+    if (err || !user) {
+      alert("Invalid ID!");
+      return res.sendFile(__dirname + '/public/signup.html');
+    }
+    user
+      .comparePassword(req.body.password)
+      .then((isMatch) => {
+        if (!isMatch) {
+          alert("Invalid Password!");
+          return res.sendFile(__dirname + '/public/signup.html');
+        }
+        user
+          .generateToken()
+          .then((user) => {
+            res.cookie("userNickName", user.nickname);
+            res.cookie("x_auth", user.token);
+            res.sendFile(__dirname + '/public/index.html');
+          })
+          .catch((err) => {
+            res.status(400).send(err);
+          });
+      })
+      .catch((err) => res.json({ loginSuccess: false, err }));
+  });
+});
+
+app.get("/api/user/auth", auth, (req, res) => {
+  res.status(200).json({
+    _id: req._id,
+    isAuth: true,
+    email: req.user.email,
+    name: req.user.name,
+    nickname: req.user.nickname,
+    cellphone: req.user.cellphone,
+  });
+});
+
+app.post("/logout", auth, (req, res) => {
+
+  User.findOneAndUpdate({ _id: req.user._id }, { token: "" }, (err, user) => {
+    if (err) return res.json({ success: false, err });
+    res.clearCookie("x_auth");
+    return res.sendFile(__dirname + '/public/login.html');
+  });
+});
 
 
 const eventSchema = new mongoose.Schema({
@@ -143,7 +203,7 @@ app.get('/timeline/remove/:id', function (req, res) {
 
 
 app.get('/', function (req, res) {
-    res.sendFile(__dirname + "public/index.html");
+  res.sendFile(__dirname + "public/index.html");
 
 })
 
