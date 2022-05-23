@@ -1,10 +1,10 @@
 {
-  "name": "comp2537-202210-assignment-1",
+  "name": "comp2537-202210-assignment-3",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -26,5 +26,7 @@
     "https": "^1.0.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.3.4"
-  }
+  },
+  "devDependencies": {},
+  "description": ""
 }
