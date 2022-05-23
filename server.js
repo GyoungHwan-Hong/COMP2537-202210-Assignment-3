@@ -96,6 +96,8 @@ app.get('/shoping/', auth, function (req, res) {
     .catch(err => console.error(err))
 })
 
+
+
 app.get('/userprofile/', auth, function (req, res) {
 
   //console.log("received a request for "+ req.params.city_name);
@@ -348,3 +350,21 @@ app.get('/profile/:id', function (req, res) {
 })
 
 
+const userTimelineSchema = new mongoose.Schema({
+    userID: String,
+    eventName: String,
+    Time: String,
+  })
+  
+const userTimelineModel = mongoose.model("usertime", userTimelineSchema);
+
+app.get('/timeline/getAllEvents', function (req, res) {
+  userTimelineModel.find({}, function (err, data) {
+    if (err) {
+      console.log("Error " + err);
+    } else {
+      console.log("Data " + data);
+    }
+    res.send(data);
+  });
+})

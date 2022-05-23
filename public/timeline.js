@@ -1,28 +1,22 @@
+const express = require('express');
+const app = express()
+const mongoose = require('mongoose');
 
-function loadEvents() {
+const userTimelineSchema = new mongoose.Schema({
+    userID: String,
+    eventName: String,
+    Time: String,
+  })
+  
+const userTimelineModel = mongoose.model("usertime", userTimelineSchema);
+
+
+function loadAddEvents() {
     $.ajax({
-        url: "http://localhost:5000/timeline/getAllEvents",
+        url: "http://localhost:5000/increaseItems/:id",
         type: "get",
         success: (x) => {
-            console.log(x)
-
-            for (i = 0; i < x.length; i++) {
-                $("main").append(
-                    `
-                <p>
-                    Event Text - ${x[i].text}
-                <br>
-                    Event Time - ${x[i].time}
-                <br>
-                    Event Hits - ${x[i].hits} 
-
-                    <br>
-                    <button class="LikeButton" id="${x[i]["_id"]}"> Adds a hit count! </button>
-                    <button class="RemoveCollection" id="${x[i]["_id"]}"> Remove! </button>
-                </p>
-                `
-                )
-            }
+            console.log("이건가" + x)
         }
     })
 }
