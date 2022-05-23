@@ -113,7 +113,7 @@ app.post("/doLogin", (req, res) => {
           .generateToken()
           .then((user) => {
             res.cookie("x_auth", user.token);
-            res.sendFile(__dirname + '/public/index.html');
+            res.redirect('/userprofile');
           })
           .catch((err) => {
             res.status(400).send(err);
@@ -142,6 +142,10 @@ app.post("/logout/", auth, (req, res) => {
     return res.sendFile(__dirname + '/public/login.html');
   });
 });
+
+
+
+
 
 
 const eventSchema = new mongoose.Schema({
