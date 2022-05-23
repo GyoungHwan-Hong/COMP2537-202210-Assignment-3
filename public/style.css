@@ -10,9 +10,13 @@ body {
     justify-content: center;
 }
 
-.img_box button {
+.img_box form {
     width: 50%;
     margin: auto;
+}
+
+.img_box button {
+    width: 100%;
     border: none;
     color: white;
     text-align: center;
@@ -23,8 +27,6 @@ body {
     cursor: pointer;
 }
 .img_box button:hover {
-    width: 50%;
-    margin: auto;
     border: 2px #1b5ac2 solid;
     color: black;
     background-color: white;

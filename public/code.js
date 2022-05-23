@@ -7,7 +7,9 @@ function processPokeResp(data) {
     <div class="img_box">
     <a href="/profile/${data.id}">${data.name}</a>
     <img src="${data.sprites.other["official-artwork"].front_default}">
-    <button type="button">Adds on shopping cart!</button>
+    <form action="additem" method="post">
+        <button type="submit" name="PokeID" value="${data.id}"/>Add on Cart</button>
+    </form>
     </div>
     `
 }
@@ -28,7 +30,7 @@ async function loadNineImages() {
         x = Math.floor(Math.random() * 200) + 1
 
         await $.ajax({
-            type: "GET", 
+            type: "GET",
             url: `https://pokeapi.co/api/v2/pokemon/${x}/`,
             success: processPokeResp
         })

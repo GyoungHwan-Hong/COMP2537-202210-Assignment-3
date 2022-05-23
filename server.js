@@ -144,7 +144,17 @@ app.post("/logout/", auth, (req, res) => {
 });
 
 
+const shoppingcartSchema = new mongoose.Schema({
+  userid: String,
+  pokeid: String,
+  ammount: Number,
+  time: String
+})
 
+app.post('/additem', auth, function (req, res) {
+  console.log(req.body);
+  console.log(req.user);
+})
 
 
 
