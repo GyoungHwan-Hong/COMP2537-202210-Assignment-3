@@ -1,6 +1,8 @@
 const { User } = require("../models/User");
 
 let auth = (req, res, next) => {
+  console.log("Hello");
+  console.log(req);
   let token = req.cookies.x_auth;
 
   User.findByToken(token)

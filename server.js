@@ -8,12 +8,14 @@ const https = require('https')
 const bodyparser = require("body-parser");
 const cookieParser = require("cookie-parser");
 
+
 const mongoose = require('mongoose');
 const { ppid } = require('process');
 
 
 var session = require('express-session')
 
+const cors = require("cors");
 
 const { User } = require("./public/models/User");
 const { auth } = require("./public/middleware/auth");
@@ -21,7 +23,21 @@ const { auth } = require("./public/middleware/auth");
 
 app.set('view engine', 'ejs');
 
-app.use(express.static('./public'));
+app.use(cookieParser());
+
+app.use(
+  cors({
+      origin: true,
+      credentials: true,
+  })
+);
+
+app.use(bodyparser.urlencoded({
+  parameterLimit: 100000,
+  limit: '50mb',
+  extended: true
+}))
+
 
 //Connect Database...
 const dbAddress = "mongodb+srv://hongkh5218:recify5218@recifycluster.w6cp9.mongodb.net/recify?retryWrites=true&w=majority";
@@ -40,18 +56,19 @@ app.listen(process.env.PORT || 5000, function (err) {
 })
 
 
-app.use(session({ secret: 'ssshhh', saveUninitialized: true, resave: true }))
+//app.use(session({ secret: 'ssshhh', saveUninitialized: true, resave: true }))
 
 
 function logger1() {
   console.log('logger1 function get executed!"')
 }
 
-app.use(bodyparser.urlencoded({
-  parameterLimit: 100000,
-  limit: '50mb',
-  extended: true
-}))
+
+app.use(express.static('./public'));
+
+app.get('/', function (req, res) {
+  res.sendFile(__dirname + "/public/index.html");
+})
 
 
 app.get('/login/', function (req, res, next) {
@@ -82,20 +99,19 @@ app.post("/doJoin", (req, res) => {
 app.post("/doLogin", (req, res) => {
   User.findOne({ ID: req.body.ID }, (err, user) => {
     if (err || !user) {
-      alert("Invalid ID!");
-      return res.sendFile(__dirname + '/public/signup.html');
+      res.send("<script>alert('Invalid ID/Password.');location.href='/login';</script>");
+      return res.sendFile(__dirname + '/public/signup.html'); //Need help...
     }
     user
       .comparePassword(req.body.password)
       .then((isMatch) => {
         if (!isMatch) {
-          alert("Invalid Password!");
-          return res.sendFile(__dirname + '/public/signup.html');
+          res.send("<script>alert('Invalid ID/Password.');location.href='/login';</script>"); //Need help...
+          return res.sendFile(__dirname + '/public/signup.html'); 
         }
         user
           .generateToken()
           .then((user) => {
-            res.cookie("userNickName", user.nickname);
             res.cookie("x_auth", user.token);
             res.sendFile(__dirname + '/public/index.html');
           })
@@ -118,7 +134,7 @@ app.get("/api/user/auth", auth, (req, res) => {
   });
 });
 
-app.post("/logout", auth, (req, res) => {
+app.post("/logout/", auth, (req, res) => {
 
   User.findOneAndUpdate({ _id: req.user._id }, { token: "" }, (err, user) => {
     if (err) return res.json({ success: false, err });
@@ -202,18 +218,8 @@ app.get('/timeline/remove/:id', function (req, res) {
 })
 
 
-app.get('/', function (req, res) {
-  res.sendFile(__dirname + "public/index.html");
-
-})
-
-// app.get('/contact', function (req, res) {
-//     res.send('Hi there, here is my <a href="mailto:ghong10@bcit.ca"> email </a>.')
-// })
-
 app.get('/profile/:id', function (req, res) {
   // res.send(`<h1> Hi there. This pokemon has the id : ${req.params.id} </h1>`)
-
 
   const url = `https://pokeapi.co/api/v2/pokemon/${req.params.id}`
 

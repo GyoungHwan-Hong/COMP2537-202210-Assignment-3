@@ -29,12 +29,12 @@
         </div>
 
         <div>
-        <a href="/login/">
+        <a href="../login/">
             LOGIN
         </a>
-        <a href="/logout/">
-            LOGOUT
-        </a>
+        <form id="footerForm" action="logout" method="POST" class="logoutForm" onsubmit="DoLogoutForm__submit(this); return false;">
+            <input type="submit" class="btn" value="Log Out"/>
+          </form>
         </div>
     </nav>
 
