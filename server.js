@@ -1,6 +1,6 @@
 const express = require('express');
-//const req = require('express/lib/request');
-//const res = require('express/lib/response');
+const req = require('express/lib/request');
+const res = require('express/lib/response');
 const app = express()
 
 const https = require('https')
@@ -17,8 +17,8 @@ const mongoose = require('mongoose');
 
 const cors = require("cors");
 
-const { User } = require("./user");
-const { auth } = require("./auth");
+const { User } = require("./public/models/User");
+const { auth } = require("./public/middleware/auth");
 
 const shoppingcartSchema = new mongoose.Schema({
   userid: String,
