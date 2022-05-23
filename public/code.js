@@ -7,7 +7,9 @@ function processPokeResp(data) {
     <div class="img_box">
     <a href="/profile/${data.id}">${data.name}</a>
     <img src="${data.sprites.other["official-artwork"].front_default}">
-    </div>`
+    <button type="button">Adds on shopping cart!</button>
+    </div>
+    `
 }
 
 async function loadNineImages() {
