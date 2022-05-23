@@ -17,8 +17,8 @@ const mongoose = require('mongoose');
 
 const cors = require("cors");
 
-const { User } = require("./public/models/User");
-const { auth } = require("./public/middleware/auth");
+const { User } = require("./models/User");
+const { auth } = require("./middleware/auth");
 
 const shoppingcartSchema = new mongoose.Schema({
   userid: String,
