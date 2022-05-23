@@ -17,8 +17,10 @@ const mongoose = require('mongoose');
 
 const cors = require("cors");
 
-const { User } = require("./models/User");
-const { auth } = require("./middleware/auth");
+const { User } = require("./public/models/User");
+const { auth } = require("./public/middleware/auth");
+
+app.use(express.static('./public'));
 
 const shoppingcartSchema = new mongoose.Schema({
   userid: String,
@@ -73,7 +75,7 @@ function logger1() {
 }
 
 
-app.use(express.static('./public'));
+
 
 app.get('/', function (req, res) {
   res.sendFile(__dirname + "/public/index.html");
