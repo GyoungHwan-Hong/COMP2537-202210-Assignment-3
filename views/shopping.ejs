@@ -6,6 +6,20 @@
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
+
+    <!-- Fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Open+Sans&family=Roboto:ital@1&display=swap"
+        rel="stylesheet">
+
+    <style>
+        * {
+            font-family: 'Lobster', cursive;
+        }
+    </style>
+
+
 </head>
 
 <body>
@@ -59,8 +73,10 @@
                                             </h7>"
                         </div>
                         <div class="cart_button_container">
-                        <button class="btn btn-primary" type="submit">Add 1 more</button>
-                        <button class="btn btn-primary" type="submit">Checkout!</button>
+                            <button class="btn btn-primary" type="submit"
+                                onclick="location.href='../increaseItem/<%= result[i]._id %>'">Add 1 more</button>
+                            <button class="btn btn-primary" type="submit"
+                                onclick="location.href='../checkoutItem/<%= result[i]._id %>'">CheckOut</button>
                         </div>
                     </div>
 

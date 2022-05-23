@@ -81,12 +81,16 @@ app.get('/', function (req, res) {
 
 
 app.get('/login/', function (req, res, next) {
-  res.sendFile(__dirname + '/public/login.html');
+  if (req.cookies.x_auth) {
+    res.redirect('/userprofile');
+  } else {
+    res.sendFile(__dirname + '/public/login.html');
+  }
 })
 
 
 app.get('/shoping/', auth, function (req, res) {
-  shoppingcartModel.find({ userid: req.user.ID }).then(result => {
+  shoppingcartModel.find({ userid: req.user.ID }).sort({ time: -1 }).then(result => {
     res.render('shopping.ejs', { result: result })
   })
     .catch(err => console.error(err))
@@ -167,25 +171,73 @@ app.post("/logout/", auth, (req, res) => {
 
 
 app.post('/additem', auth, function (req, res) {
-    console.log(req.body);
-    console.log(req.user);
-    let today = new Date();
-    let defOrderStatus = 'Not yet'
-    shoppingcartModel.create({
-      userid: req.user.ID,
-      pokeid: req.body.PokeID,
-      time: today,
-      amount: 1,
-      orderStatus: defOrderStatus
-    }, function (err, data) {
-      if (err) {
-        console.log("Error " + err);
-      } else {
-        console.log("Data " + data);
-      }
-      console.log("Insertion is successful");
-    });
+  console.log(req.body);
+  console.log(req.user);
+  let today = new Date();
+  let defOrderStatus = 'Not yet'
+  shoppingcartModel.create({
+    userid: req.user.ID,
+    pokeid: req.body.PokeID,
+    time: today,
+    amount: 1,
+    orderStatus: defOrderStatus
+  }, function (err, data) {
+    if (err) {
+      console.log("Error " + err);
+    } else {
+      console.log("Data " + data);
+    }
+    console.log("Insertion is successful");
+  });
 })
+
+
+//U
+app.get('/increaseItems/:id', function (req, res) {
+  shoppingcartModel.updateOne({
+    _id: req.params.id
+  }, {
+    $inc: { amount: 1 }
+  }, function (err, data) {
+    if (err) {
+      console.log("Error " + err);
+    } else {
+      console.log("Data " + data);
+    }
+    res.redirect('/shoping');
+  });
+})
+
+app.get('/increaseItem/:id', function (req, res) {
+  shoppingcartModel.updateOne({
+    _id: req.params.id
+  }, {
+    $inc: { amount: 1 }
+  }, function (err, data) {
+    if (err) {
+      console.log("Error " + err);
+    } else {
+      console.log("Data " + data);
+    }
+    res.redirect('/shoping');
+  });
+})
+
+app.get('/checkoutItem/:id', function (req, res) {
+  shoppingcartModel.updateOne({
+    _id: req.params.id
+  }, {
+    $set: { orderStatus: "Order is complete!" }
+  }, function (err, data) {
+    if (err) {
+      console.log("Error " + err);
+    } else {
+      console.log("Data " + data);
+    }
+    res.redirect('/shoping');
+  });
+})
+
 
 
 
