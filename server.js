@@ -1,6 +1,6 @@
 const express = require('express');
-const req = require('express/lib/request');
-const res = require('express/lib/response');
+//const req = require('express/lib/request');
+//const res = require('express/lib/response');
 const app = express()
 
 const https = require('https')
@@ -10,10 +10,10 @@ const cookieParser = require("cookie-parser");
 
 
 const mongoose = require('mongoose');
-const { ppid } = require('process');
+//const { ppid } = require('process');
 
 
-var session = require('express-session')
+//var session = require('express-session')
 
 const cors = require("cors");
 
