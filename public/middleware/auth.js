@@ -5,7 +5,7 @@ let auth = (req, res, next) => {
 
   User.findByToken(token)
     .then((user) => {
-      if (!user) return res.json({ isAuth: false, error: true });
+      if (!user) return res.redirect('/login.html');
       req.token = token;
       req.user = user;
       next();

@@ -20,6 +20,15 @@ const cors = require("cors");
 const { User } = require("./public/models/User");
 const { auth } = require("./public/middleware/auth");
 
+const shoppingcartSchema = new mongoose.Schema({
+  userid: String,
+  pokeid: String,
+  time: String,
+  amount: Number,
+  orderStatus: String,
+})
+
+const shoppingcartModel = mongoose.model("Shoppingcart", shoppingcartSchema);
 
 app.set('view engine', 'ejs');
 
@@ -27,8 +36,8 @@ app.use(cookieParser());
 
 app.use(
   cors({
-      origin: true,
-      credentials: true,
+    origin: true,
+    credentials: true,
   })
 );
 
@@ -76,26 +85,29 @@ app.get('/login/', function (req, res, next) {
 })
 
 
-app.get('/shoping/', function (req, res, next) {
-  res.send("Something for shoping card.")
+app.get('/shoping/', auth, function (req, res) {
+  shoppingcartModel.find({ userid: req.user.ID }).then(result => {
+    res.render('shopping.ejs', { result: result })
+  })
+    .catch(err => console.error(err))
 })
 
-app.get('/userprofile/', auth, function (req, res, next) {
+app.get('/userprofile/', auth, function (req, res) {
 
-    //console.log("received a request for "+ req.params.city_name);
-    User.find({ ID: req.user.ID}, function (err, data) {
-      if (err) {
-        console.log("Error " + err);
-      } else {
-        console.log("Data " + data);
-      }
-      res.render("useprofile.ejs", {
-        "id": data[0].ID,
-        "email": data[0].email,
-        "nickname": data[0].nickname,
-        "phone": data[0].cellphone
-      });
+  //console.log("received a request for "+ req.params.city_name);
+  User.find({ ID: req.user.ID }, function (err, data) {
+    if (err) {
+      console.log("Error " + err);
+    } else {
+      console.log("Data " + data);
+    }
+    res.render("useprofile.ejs", {
+      "id": data[0].ID,
+      "email": data[0].email,
+      "nickname": data[0].nickname,
+      "phone": data[0].cellphone
     });
+  });
 })
 
 app.post("/doJoin", (req, res) => {
@@ -117,7 +129,7 @@ app.post("/doLogin", (req, res) => {
       .then((isMatch) => {
         if (!isMatch) {
           res.send("<script>alert('Invalid ID/Password.');location.href='/login';</script>"); //Need help...
-          return res.sendFile(__dirname + '/public/signup.html'); 
+          return res.sendFile(__dirname + '/public/signup.html');
         }
         user
           .generateToken()
@@ -154,30 +166,25 @@ app.post("/logout/", auth, (req, res) => {
 });
 
 
-const shoppingcartSchema = new mongoose.Schema({
-  userid: String,
-  pokeid: String,
-  time: String
-})
-
-const shoppingcartModel = mongoose.model("Shoppingcart", shoppingcartSchema);
-
 app.post('/additem', auth, function (req, res) {
-  console.log(req.body);
-  console.log(req.user);
-  let today = new Date();
-  shoppingcartModel.create({
-    userid: req.user.ID,
-    pokeid: req.body.PokeID,
-    time: today
-  }, function (err, data) {
-    if (err) {
-      console.log("Error " + err);
-    } else {
-      console.log("Data " + data);
-    }
-    console.log("Insertion is successful");
-  });
+    console.log(req.body);
+    console.log(req.user);
+    let today = new Date();
+    let defOrderStatus = 'Not yet'
+    shoppingcartModel.create({
+      userid: req.user.ID,
+      pokeid: req.body.PokeID,
+      time: today,
+      amount: 1,
+      orderStatus: defOrderStatus
+    }, function (err, data) {
+      if (err) {
+        console.log("Error " + err);
+      } else {
+        console.log("Data " + data);
+      }
+      console.log("Insertion is successful");
+    });
 })
 
 
@@ -281,8 +288,6 @@ app.get('/profile/:id', function (req, res) {
         "id": req.params.id,
         "name": data.name,
         "hp": tmp[0]
-
-
       });
 
     })
