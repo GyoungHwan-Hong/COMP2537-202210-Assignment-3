@@ -17,7 +17,7 @@ const mongoose = require('mongoose');
 
 const cors = require("cors");
 
-const { User } = require("./public/models/user");
+const { User } = require("./public/models/User");
 const { auth } = require("./public/middleware/auth");
 
 app.use(express.static('./public'));
