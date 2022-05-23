@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/GyoungHwan-Hong/COMP2537-202210-Assignment-1.git"
+    "url": "git+https://github.com/GyoungHwan-Hong/COMP2537-202210-Assignment-3.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/GyoungHwan-Hong/COMP2537-202210-Assignment-1/issues"
+    "url": "https://github.com/GyoungHwan-Hong/COMP2537-202210-Assignment-3/issues"
   },
-  "homepage": "https://github.com/GyoungHwan-Hong/COMP2537-202210-Assignment-1#readme",
+  "homepage": "https://github.com/GyoungHwan-Hong/COMP2537-202210-Assignment-3#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.0",
