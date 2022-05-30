@@ -208,12 +208,12 @@ button {
 }
 
 
-
-
 .add_user {
+    width: 80%;
     border: 2px #333 solid;
     margin: auto;
     display: flex;
+    text-align: center;
 }
 .add_id {
     border: 2px #333 solid;
@@ -238,5 +238,9 @@ button {
 }
 .add_btn {
     border: 2px #333 solid;
+    margin: auto;
+}
+
+.joinForm {
     margin: auto;
 }
