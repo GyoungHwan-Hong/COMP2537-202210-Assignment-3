@@ -110,7 +110,7 @@ app.get('/userprofile/', auth, function (req, res) {
       console.log(result);
       res.render('adminuserprofile.ejs', { result: result })
     })
-    .catch(err => console.error(err))
+      .catch(err => console.error(err))
   } else {
     User.find({ ID: req.user.ID }, function (err, data) {
       if (err) {
@@ -127,7 +127,7 @@ app.get('/userprofile/', auth, function (req, res) {
     });
   }
 
-  
+
 })
 
 app.post("/doJoin", (req, res) => {
@@ -135,6 +135,18 @@ app.post("/doJoin", (req, res) => {
   user.save((err, userInfo) => {
     if (err) return res.sendFile(__dirname + '/public/signup.html');
     return res.redirect('/login.html')
+  });
+});
+
+
+app.post("/adminDoJoin", (req, res) => {
+  const user = new User(req.body);
+
+  console.log(user);
+
+  user.save((err, userInfo) => {
+    if (err) return res.send(err);
+    return res.redirect('/userprofile')
   });
 });
 
@@ -330,19 +342,100 @@ app.get('/timeline/remove/:id', function (req, res) {
   });
 })
 
-app.get('/timeline/user/remove/:id', function (req, res) {
+app.get('/timeline/user/remove/:id', auth, function (req, res) {
   //console.log(req.params);
-  User.remove({
+
+  if (req.params.id == req.user.ID) {
+    res.send("Admin can't remove their own account.")
+  } else {
+    User.remove({
+      ID: req.params.id
+    }, function (err, data) {
+      if (err) {
+        console.log("Error " + err);
+      } else {
+        console.log("Data " + data);
+      }
+      res.send("Removing is good!");
+    });
+  }
+})
+
+
+app.get('/timeline/user/update/ID/:id/:newid', function (req, res) {
+  //console.log(req.params);
+  User.updateOne({
     ID: req.params.id
-  }, function (err, data) {
+  }, { ID: req.params.newid }, function (err, data) {
     if (err) {
       console.log("Error " + err);
     } else {
       console.log("Data " + data);
     }
-    res.send("Removing is good!");
+    res.send("Update is good!");
   });
 })
+
+
+app.get('/timeline/user/update/email/:id/:newid', function (req, res) {
+  //console.log(req.params);
+  User.updateOne({
+    ID: req.params.id
+  }, { email: req.params.newid }, function (err, data) {
+    if (err) {
+      console.log("Error " + err);
+    } else {
+      console.log("Data " + data);
+    }
+    res.send("Update is good!");
+  });
+})
+
+
+app.get('/timeline/user/update/nickname/:id/:newid', function (req, res) {
+  //console.log(req.params);
+  User.updateOne({
+    ID: req.params.id
+  }, { nickname: req.params.newid }, function (err, data) {
+    if (err) {
+      console.log("Error " + err);
+    } else {
+      console.log("Data " + data);
+    }
+    res.send("Update is good!");
+  });
+})
+
+app.get('/timeline/user/update/cellphone/:id/:newid', function (req, res) {
+  //console.log(req.params);
+  User.updateOne({
+    ID: req.params.id
+  }, { cellphone: req.params.newid }, function (err, data) {
+    if (err) {
+      console.log("Error " + err);
+    } else {
+      console.log("Data " + data);
+    }
+    res.send("Update is good!");
+  });
+})
+
+
+app.get('/timeline/user/update/admin/:id/:newid', function (req, res) {
+  //console.log(req.params);
+  User.updateOne({
+    ID: req.params.id
+  }, { admin: req.params.newid }, function (err, data) {
+    if (err) {
+      console.log("Error " + err);
+    } else {
+      console.log("Data " + data);
+    }
+    res.send("Update is good!");
+  });
+})
+
+
 
 
 app.get('/profile/:id', function (req, res) {
@@ -379,11 +472,11 @@ app.get('/profile/:id', function (req, res) {
 
 
 const userTimelineSchema = new mongoose.Schema({
-    userID: String,
-    eventName: String,
-    Time: String,
-  })
-  
+  userID: String,
+  eventName: String,
+  Time: String,
+})
+
 const userTimelineModel = mongoose.model("usertime", userTimelineSchema);
 
 app.get('/timeline/getAllEvents', function (req, res) {

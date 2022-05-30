@@ -206,3 +206,37 @@ button {
     margin-bottom: 5px;
     width: 50%;
 }
+
+
+
+
+.add_user {
+    border: 2px #333 solid;
+    margin: auto;
+    display: flex;
+}
+.add_id {
+    border: 2px #333 solid;
+    margin: auto;
+}
+.add_pw {
+    border: 2px #333 solid;
+    margin: auto;
+}
+.add_name {
+    border: 2px #333 solid;
+    margin: auto;
+}
+
+.add_email {
+    border: 2px #333 solid;
+    margin: auto;
+}
+.add_cellphoneNo {
+    border: 2px #333 solid;
+    margin: auto;
+}
+.add_btn {
+    border: 2px #333 solid;
+    margin: auto;
+}

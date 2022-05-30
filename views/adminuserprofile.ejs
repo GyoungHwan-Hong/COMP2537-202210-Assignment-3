@@ -44,6 +44,8 @@
     </nav>
 
     <main>
+        Admin Dashboard.
+        
         <% for(var i=0; i < result.length; i++) {%>
             <div class="usercard">
                 User's info
@@ -53,47 +55,71 @@
                 </div>
                 <div class="input-group mb-3">
                     <label for="staticEmail" class="col-sm-2 col-form-label">ID</label>
-                    <input type="text" class="form-control" placeholder="<%= result[i].ID %>" aria-label="User ID"
+                    <input type="text" id="id_<%= result[i].ID %>" class="form-control" placeholder="<%= result[i].ID %>" aria-label="User ID"
                         aria-describedby="button-addon2">
-                    <button class="btn btn-outline-secondary w-25" type="button" id="button-addon2">Update</button>
+                    <button class="btn btn-outline-secondary w-25" type="button" id="button-addon2" onclick="UpdateID('<%= result[i].ID %>')">Update</button>
                 </div>
                 <div class="input-group mb-3">
                     <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
-                    <input type="text" class="form-control" placeholder="<%= result[i].email %>" aria-label="User Email"
+                    <input type="text" id="email_<%= result[i].ID %>" class="form-control" placeholder="<%= result[i].email %>" aria-label="User Email"
                         aria-describedby="button-addon2">
-                    <button class="btn btn-outline-secondary w-25" type="button" id="button-addon2">Update</button>
+                    <button class="btn btn-outline-secondary w-25" type="button" id="button-addon2" onclick="UpdateEmail('<%= result[i].ID %>')">Update</button>
                 </div>
                 <div class="input-group mb-3">
                     <label for="staticEmail" class="col-sm-2 col-form-label">Password</label>
-                    <input type="text" class="form-control" placeholder="<%= result[i].Password %>"
+                    <input type="text" id="password_<%= result[i].ID %>" class="form-control" placeholder="<%= result[i].Password %>"
                         aria-label="User ID:" aria-describedby="button-addon2">
-                    <button class="btn btn-outline-secondary w-25" type="button" id="button-addon2">Update</button>
+                    <button class="btn btn-outline-secondary w-25" type="button" id="button-addon2" onclick="UpdatePassword('<%= result[i].Password %>')">Update</button>
                 </div>
                 <div class="input-group mb-3">
                     <label for="staticEmail" class="col-sm-2 col-form-label">NickName</label>
-                    <input type="text" class="form-control" placeholder="<%= result[i].nickname %>"
+                    <input type="text" id="nickname_<%= result[i].ID %>"  class="form-control" placeholder="<%= result[i].nickname %>"
                         aria-label="User NickName" aria-describedby="button-addon2">
-                    <button class="btn btn-outline-secondary w-25" type="button" id="button-addon2">Update</button>
+                    <button class="btn btn-outline-secondary w-25" type="button" id="button-addon2" onclick="UpdateNickName('<%= result[i].ID %>')">Update</button>
                 </div>
                 <div class="input-group mb-3">
                     <label for="staticEmail" class="col-sm-2 col-form-label">Cellphone</label>
-                    <input type="text" class="form-control" placeholder="<%= result[i].cellphone %>"
+                    <input type="text" id="cellphone_<%= result[i].ID %>" class="form-control" placeholder="<%= result[i].cellphone %>"
                         aria-label="User Cellphone" aria-describedby="button-addon2">
-                    <button class="btn btn-outline-secondary w-25" type="button" id="button-addon2">Update</button>
+                    <button class="btn btn-outline-secondary w-25" type="button" id="button-addon2" onclick="UpdateCellphone('<%= result[i].ID %>')">Update</button>
                 </div>
                 <div class="input-group mb-3">
                     <label for="staticEmail" class="col-sm-2 col-form-label">Admin Account</label>
-                    <select class="form-select " aria-label="Default select example">
+                    <select id="admin_<%= result[i].ID %>" class="form-select " aria-label="Default select example">
                         <option selected>
                             <%= result[i].admin %>
                         </option>
                         <option value="true">true</option>
                         <option value="false">false</option>
                     </select>
-                    <button class="btn btn-outline-secondary w-25" type="button" id="button-addon2">Update</button>
+                    <button class="btn btn-outline-secondary w-25" type="button" id="button-addon2" onclick="UpdateAdmin('<%= result[i].ID %>')">Update</button>
                 </div>
             </div>
             <% } %>
+
+
+            <div class="add_user">
+            <form action="../adminDoJoin" method="POST" class="joinForm" onsubmit="DoJoinForm__submit(this); return false;">                                                                           
+                <h2>Add User</h2>
+                <div class="textForm">
+                  <input name="ID" type="text" class="add_id" placeholder="ID">
+                  </input>
+                </div>
+                <div class="textForm">
+                  <input name="password" type="password" class="add_pw" placeholder="Password">
+                </div>
+                <div class="textForm">
+                  <input name="nickname" type="text" class="add_name" placeholder="Nick Name">
+                </div>
+                 <div class="textForm">
+                  <input name="email" type="text" class="add_email" placeholder="Email">
+                </div>
+                <div class="textForm">
+                  <input name="cellphone" type="number" class="add_cellphoneNo" placeholder="Phone Number">
+                </div>
+                <input type="submit" class="add_btn" value="J O I N"/>
+              </form>
+            </div>
 
     </main>
 
