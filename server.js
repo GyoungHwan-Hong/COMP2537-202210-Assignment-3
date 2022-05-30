@@ -107,6 +107,7 @@ app.get('/userprofile/', auth, function (req, res) {
   if (req.user.admin) {
 
     User.find().then(result => {
+      console.log(result);
       res.render('adminuserprofile.ejs', { result: result })
     })
     .catch(err => console.error(err))
@@ -319,6 +320,20 @@ app.get('/timeline/remove/:id', function (req, res) {
   //console.log(req.params);
   eventModel.remove({
     _id: req.params.id
+  }, function (err, data) {
+    if (err) {
+      console.log("Error " + err);
+    } else {
+      console.log("Data " + data);
+    }
+    res.send("Removing is good!");
+  });
+})
+
+app.get('/timeline/user/remove/:id', function (req, res) {
+  //console.log(req.params);
+  User.remove({
+    ID: req.params.id
   }, function (err, data) {
     if (err) {
       console.log("Error " + err);

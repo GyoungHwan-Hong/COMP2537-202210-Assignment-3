@@ -27,11 +27,15 @@ const userSchema = mongoose.Schema({
     default: 0,
   },
   token: {
-    type: String,
+    type: String
   },
   tokenExp: {
-    type: Number,
+    type: Number
   },
+  admin: {
+    type: Boolean,
+    default: false
+  }
 });
 
 
