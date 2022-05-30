@@ -1,0 +1,106 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="../style.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <!-- Fonts-->
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Open+Sans&family=Roboto:ital@1&display=swap"
+        rel="stylesheet">
+
+</head>
+
+<body>
+    <header>
+        <h1>Pokemon Page</h1>
+    </header>
+    <nav>
+        <div>
+            <a href="../index.html">
+                HOME
+            </a>
+            <a href="../search.html">
+                SEARCH
+            </a>
+            <a href="../shoping">
+                SHOPING CART
+            </a>
+            <a href="../userprofile">
+                PROFILE
+            </a>
+        </div>
+
+        <div>
+            <a href="../login/">
+                LOGIN
+            </a>
+            <form id="footerForm" action="../logout" method="POST" class="logoutForm"
+                onsubmit="DoLogoutForm__submit(this); return false;">
+                <input type="submit" class="btn" value="Log Out" />
+            </form>
+        </div>
+    </nav>
+
+    <main>
+        <% for(var i=0; i < result.length; i++) {%>
+            <div class="usercard">
+                User's info
+                <br>
+                <div>
+                    <button type="button" class="btn btn-outline-danger w-25" style="height: 40px; margin-bottom: 10px;" value="<%= result[i]._uid %>">Delete</button>
+                </div>
+                <div class="input-group mb-3">
+                    <label for="staticEmail" class="col-sm-2 col-form-label">ID</label>
+                    <input type="text" class="form-control" placeholder="<%= result[i].ID %>" aria-label="User ID"
+                        aria-describedby="button-addon2">
+                    <button class="btn btn-outline-secondary w-25" type="button" id="button-addon2">Update</button>
+                </div>
+                <div class="input-group mb-3">
+                    <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
+                    <input type="text" class="form-control" placeholder="<%= result[i].email %>" aria-label="User Email"
+                        aria-describedby="button-addon2">
+                    <button class="btn btn-outline-secondary w-25" type="button" id="button-addon2">Update</button>
+                </div>
+                <div class="input-group mb-3">
+                    <label for="staticEmail" class="col-sm-2 col-form-label">Password</label>
+                    <input type="text" class="form-control" placeholder="<%= result[i].Password %>"
+                        aria-label="User ID:" aria-describedby="button-addon2">
+                    <button class="btn btn-outline-secondary w-25" type="button" id="button-addon2">Update</button>
+                </div>
+                <div class="input-group mb-3">
+                    <label for="staticEmail" class="col-sm-2 col-form-label">NickName</label>
+                    <input type="text" class="form-control" placeholder="<%= result[i].nickname %>"
+                        aria-label="User NickName" aria-describedby="button-addon2">
+                    <button class="btn btn-outline-secondary w-25" type="button" id="button-addon2">Update</button>
+                </div>
+                <div class="input-group mb-3">
+                    <label for="staticEmail" class="col-sm-2 col-form-label">Cellphone</label>
+                    <input type="text" class="form-control" placeholder="<%= result[i].cellphone %>"
+                        aria-label="User Cellphone" aria-describedby="button-addon2">
+                    <button class="btn btn-outline-secondary w-25" type="button" id="button-addon2">Update</button>
+                </div>
+                <div class="input-group mb-3">
+                    <label for="staticEmail" class="col-sm-2 col-form-label">Admin Account</label>
+                    <select class="form-select " aria-label="Default select example">
+                        <option selected>
+                            <%= result[i].admin %>
+                        </option>
+                        <option value="true">true</option>
+                        <option value="false">false</option>
+                    </select>
+                    <button class="btn btn-outline-secondary w-25" type="button" id="button-addon2">Update</button>
+                </div>
+            </div>
+            <% } %>
+
+    </main>
+
+    <!-- <script type="module" src="../timeline.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

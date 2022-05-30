@@ -104,20 +104,29 @@ app.get('/shoping/', auth, function (req, res) {
 
 app.get('/userprofile/', auth, function (req, res) {
 
-  //console.log("received a request for "+ req.params.city_name);
-  User.find({ ID: req.user.ID }, function (err, data) {
-    if (err) {
-      console.log("Error " + err);
-    } else {
-      console.log("Data " + data);
-    }
-    res.render("useprofile.ejs", {
-      "id": data[0].ID,
-      "email": data[0].email,
-      "nickname": data[0].nickname,
-      "phone": data[0].cellphone
+  if (req.user.admin) {
+
+    User.find().then(result => {
+      res.render('adminuserprofile.ejs', { result: result })
+    })
+    .catch(err => console.error(err))
+  } else {
+    User.find({ ID: req.user.ID }, function (err, data) {
+      if (err) {
+        console.log("Error " + err);
+      } else {
+        console.log("Data " + data);
+      }
+      res.render("useprofile.ejs", {
+        "id": data[0].ID,
+        "email": data[0].email,
+        "nickname": data[0].nickname,
+        "phone": data[0].cellphone
+      });
     });
-  });
+  }
+
+  
 })
 
 app.post("/doJoin", (req, res) => {
