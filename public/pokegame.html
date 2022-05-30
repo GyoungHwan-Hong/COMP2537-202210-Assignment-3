@@ -6,6 +6,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="code.js"></script>
     <script src="pokegame.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 
     <!-- Fonts-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -53,39 +55,55 @@
             </form>
         </div>
     </nav>
-    <div id="game_grid">
-        <div class="card">
-            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/7.png"
-                class="front_face" alt="">
-            <img src="https://picsum.photos/id/237/100/125" class="back_face" alt="">
-        </div>
-        <div class="card">
-            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/8.png"
-                class="front_face" alt="">
-            <img src="https://picsum.photos/id/237/100/125" class="back_face" alt="">
-        </div>
-        <div class="card">
-            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/9.png"
-                class="front_face" alt="">
-            <img src="https://picsum.photos/id/237/100/125" class="back_face" alt="">
-        </div>
-        <div class="card">
-            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/7.png"
-                class="front_face" alt="">
-            <img src="https://picsum.photos/id/237/100/125" class="back_face" alt="">
-        </div>
-        <div class="card">
-            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/8.png"
-                class="front_face" alt="">
-            <img src="https://picsum.photos/id/237/100/125" class="back_face" alt="">
-        </div>
-        <div class="card">
-            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/9.png"
-                class="front_face" alt="">
-            <img src="https://picsum.photos/id/237/100/125" class="back_face" alt="">
-        </div>
 
+    <div class="gamesetting">
+        <div>
+            <div>
+                Number of Grid:
+            </div>
+            <input id="numberofgrid" type="text" placeholder="at least 2."></input>
+        </div>
+        <div>
+            <button class="btn btn-primary w-100" type="submit" onclick="startGame()">Start Game</button>
+        </div>
     </div>
+
+    <br>
+    <gamebody>
+        <div id="game_grid">
+            <div class="card">
+                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/7.png"
+                    class="front_face" alt="">
+                <img src="https://picsum.photos/id/237/100/125" class="back_face" alt="">
+            </div>
+            <div class="card">
+                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/8.png"
+                    class="front_face" alt="">
+                <img src="https://picsum.photos/id/237/100/125" class="back_face" alt="">
+            </div>
+            <div class="card">
+                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/9.png"
+                    class="front_face" alt="">
+                <img src="https://picsum.photos/id/237/100/125" class="back_face" alt="">
+            </div>
+            <div class="card">
+                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/7.png"
+                    class="front_face" alt="">
+                <img src="https://picsum.photos/id/237/100/125" class="back_face" alt="">
+            </div>
+            <div class="card">
+                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/8.png"
+                    class="front_face" alt="">
+                <img src="https://picsum.photos/id/237/100/125" class="back_face" alt="">
+            </div>
+            <div class="card">
+                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/9.png"
+                    class="front_face" alt="">
+                <img src="https://picsum.photos/id/237/100/125" class="back_face" alt="">
+            </div>
+
+        </div>
+    </gamebody>
 </body>
 
 </html>
